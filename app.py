@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request  # from module import Class.
 
 
-import os 
+import os
 
 import hfpy_utils
 import swim_utils
@@ -14,7 +14,6 @@ app = Flask(__name__)
 @app.get("/hello")
 def hello():
     return "Hello from my first web app - cool, isn't it?"  # ANY string.
-
 
 @app.get("/chart")
 def display_chart():
@@ -30,7 +29,7 @@ def display_chart():
 
     the_title = f"{name} (Under {age}) {distance} {stroke}"
     from_max = max(converts) + 50
-    the_converts = [ hfpy_utils.convert2range(n, 0, from_max, 0, 350) for n in converts ]
+    the_converts = [hfpy_utils.convert2range(n, 0, from_max, 0, 350) for n in converts]
 
     the_data = zip(the_converts, the_times)
 
