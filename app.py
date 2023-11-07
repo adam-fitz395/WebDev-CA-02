@@ -15,6 +15,11 @@ app = Flask(__name__)
 def hello():
     return "Hello from my first web app - cool, isn't it?"  # ANY string.
 
+@app.get("/base")
+def base():
+    sample_title = "Test title"
+    return render_template("base.html", title=sample_title)
+
 @app.get("/chart")
 def display_chart():
     (
@@ -57,7 +62,30 @@ def get_swimmers_names():
 
 @app.post("/displayevents")
 def get_swimmer_events():
-    return request.form["swimmer"]
+    distances = set()
+    strokes = set()
+    events = set()
+    
+    files = os.listdir(swim_utils.FOLDER)
+    files.remove(".DS_Store")
+    
+    swimmer = request.form["swimmer"]
+    
+    for file in files:
+        if swimmer + "-" in file:
+            swimmer_data = swim_utils.get_swimmers_data(file)
+            distances.add(swimmer_data[2])
+            strokes.add(swimmer_data[3])
+            
+    for distance in distances:
+        for stroke in strokes:
+            events.add(f"{distance} - {stroke}")
+    return render_template(
+        "event.html",
+        title="Select an event",
+        data=sorted(events)
+        
+    )
 
 
 if __name__ == "__main__":
