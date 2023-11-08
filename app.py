@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Flask, render_template, request, session  # from module import Class.
 
 import os
