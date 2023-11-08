@@ -56,7 +56,7 @@ def display_chart():
     )
 
 
-@app.get("/")
+@app.route("/")
 @app.get("/getswimmers")
 def get_swimmers_names():
     files = os.listdir(swim_utils.FOLDER)
@@ -90,4 +90,4 @@ def get_swimmer_events():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)  # Starts a local (test) webserver, and waits... forever.
+    app.run(port=8081)
